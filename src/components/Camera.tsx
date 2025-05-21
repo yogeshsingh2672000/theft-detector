@@ -11,7 +11,6 @@ interface CameraProps {
 
 const Camera = ({
   onCapture,
-  autoCapture = false,
   captureInterval = 5000,
   className = "",
 }: CameraProps) => {

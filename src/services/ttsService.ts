@@ -4,9 +4,6 @@ class TtsService {
   private static instance: TtsService;
   private synthesis: SpeechSynthesis;
   private voices: SpeechSynthesisVoice[] = [];
-  private currentUtterance: SpeechSynthesisUtterance | null = null;
-  private azureConfig: AzureConfig | null = null;
-  private azureSpeechSDK: any = null;
   private azureSpeechSynthesizer: any = null;
   private isUsingAzure = false;
 
@@ -59,11 +56,8 @@ class TtsService {
   // Initialize Azure Speech SDK
   public async initAzure(config: AzureConfig): Promise<boolean> {
     try {
-      this.azureConfig = config;
-      
       // Dynamically import the Speech SDK
       const { SpeechConfig, AudioConfig, SpeechSynthesizer } = await import('microsoft-cognitiveservices-speech-sdk');
-      this.azureSpeechSDK = { SpeechConfig, AudioConfig, SpeechSynthesizer };
       
       // Create speech config
       const speechConfig = SpeechConfig.fromSubscription(
@@ -127,9 +121,6 @@ class TtsService {
       utterance.volume = config.volume;
     }
 
-    // Store reference to current utterance
-    this.currentUtterance = utterance;
-    
     // Start speaking
     this.synthesis.speak(utterance);
   }
@@ -170,7 +161,6 @@ class TtsService {
   public cancel(): void {
     // Cancel browser speech synthesis
     this.synthesis.cancel();
-    this.currentUtterance = null;
     
     // Cancel Azure speech synthesis if active
     if (this.azureSpeechSynthesizer) {
