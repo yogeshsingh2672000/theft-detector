@@ -89,4 +89,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - OpenAI for providing the Vision API
 - The React team for the incredible framework
-- All contributors and users of this project
+- [Yogesh Kumar](https://www.linkedin.com/in/yogesh-krr/)
